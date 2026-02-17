@@ -1,0 +1,94 @@
+# src/models_eval.py
+
+from typing import Tuple
+
+import matplotlib.pyplot as plt
+import numpy as np
+import seaborn as sns
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from xgboost import XGBClassifier
+
+
+def _train_val_split(
+    X: np.ndarray,
+    y: np.ndarray,
+    test_size: float = 0.2,
+    random_state: int = 24,
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    return train_test_split(X, y, test_size=test_size, stratify=y, random_state=random_state)
+
+
+def _plot_confusion_matrix(y_true, y_pred, title: str):
+    fig, ax = plt.subplots()
+    sns.heatmap(
+        confusion_matrix(y_true, y_pred, normalize="true"),
+        annot=True,
+        ax=ax,
+    )
+    ax.set_title(title)
+    ax.set_ylabel("True Value")
+    ax.set_xlabel("Predicted Value")
+    plt.show()
+
+
+def eval_logreg(X: np.ndarray, y: np.ndarray, title_suffix: str):
+    train_x, val_x, train_y, val_y = _train_val_split(X, y)
+    clf = LogisticRegression(solver="lbfgs", max_iter=1000)
+    clf.fit(train_x, train_y)
+    pred_y = clf.predict(val_x)
+
+    print(f"=== Logistic Regression ({title_suffix}) ===")
+    print(classification_report(val_y, pred_y))
+    _plot_confusion_matrix(val_y, pred_y, f"Confusion Matrix (LogReg, {title_suffix})")
+
+
+def eval_decision_tree(X: np.ndarray, y: np.ndarray, title_suffix: str):
+    train_x, val_x, train_y, val_y = _train_val_split(X, y)
+    model = DecisionTreeClassifier(max_depth=6, criterion="entropy", random_state=24)
+    model.fit(train_x, train_y)
+    y_pred = model.predict(val_x)
+
+    print(f"=== Decision Tree ({title_suffix}) ===")
+    print(classification_report(val_y, y_pred))
+    _plot_confusion_matrix(val_y, y_pred, f"Confusion Matrix (DT, {title_suffix})")
+
+
+def eval_xgboost(X: np.ndarray, y: np.ndarray, title_suffix: str):
+    train_x, val_x, train_y, val_y = _train_val_split(X, y)
+    model = XGBClassifier(
+        objective="binary:logistic",
+        n_estimators=200,
+        max_depth=4,
+        learning_rate=0.1,
+        subsample=0.8,
+        colsample_bytree=0.8,
+        random_state=24,
+        n_jobs=-1,
+    )
+    model.fit(train_x, train_y)
+    y_pred = model.predict(val_x)
+
+    print(f"=== XGBoost ({title_suffix}) ===")
+    print(classification_report(val_y, y_pred))
+    _plot_confusion_matrix(val_y, y_pred, f"Confusion Matrix (XGB, {title_suffix})")
+
+
+def eval_random_forest(X: np.ndarray, y: np.ndarray, title_suffix: str):
+    train_x, val_x, train_y, val_y = _train_val_split(X, y)
+    rf = RandomForestClassifier(
+        n_estimators=200,
+        max_depth=None,
+        class_weight="balanced",
+        random_state=24,
+        n_jobs=-1,
+    )
+    rf.fit(train_x, train_y)
+    y_pred = rf.predict(val_x)
+
+    print(f"=== Random Forest ({title_suffix}) ===")
+    print(classification_report(val_y, y_pred))
+    _plot_confusion_matrix(val_y, y_pred, f"Confusion Matrix (RF, {title_suffix})")

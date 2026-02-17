@@ -1,0 +1,109 @@
+# train.py
+import time
+from pathlib import Path
+
+import numpy as np
+
+from src.data_prep import (
+    load_data,
+    filter_amount,
+    undersample_majority,
+    split_X_y,
+)
+from src.autoencoder import (
+    scale_features_minmax,
+    split_normal_fraud,
+    train_autoencoder,
+    build_encoder,
+    latent_representations,
+)
+from src.tsne_visualization import tsne_embeddings, plot_tsne
+from src.models_eval import (
+    eval_logreg,
+    eval_decision_tree,
+    eval_xgboost,
+    eval_random_forest,
+)
+
+
+def log(msg: str):
+    print(msg, flush=True)
+
+
+def main():
+    start = time.perf_counter()
+    log("Starting pipeline...")
+
+    data_path = Path("data/creditcard.csv")
+
+    # 1. Load and filter by Amount
+    df_raw = load_data(data_path)
+    log(f"Loaded  {df_raw.shape[0]} rows")
+
+    df = filter_amount(df_raw, max_amount=8000.0)
+    log(f"After Amount filter: {df.shape[0]} rows")
+
+    # 2. Build undersampled datasets (1:10, 1:20, 1:50)
+    sampled_dfs = undersample_majority(df, ratios=(10, 20, 50))
+    log("Created undersampled datasets: " + ", ".join(sampled_dfs.keys()))
+
+    # 3. Split to X, y
+    X_sets = {}
+    y_sets = {}
+    for key, sdf in sampled_dfs.items():
+        X, y = split_X_y(sdf, target_col="Class")
+        X_sets[key] = X
+        y_sets[key] = y
+    log("Split sampled datasets into X and y")
+
+    # 4. (Optional) TSNE on original high-dim data
+    log("Computing t-SNE on original feature space...")
+    highdim_tsne = tsne_embeddings(X_sets)
+    for key, emb in highdim_tsne.items():
+        plot_tsne(emb, y_sets[key], f"t-SNE plot ({key})")
+    log("Finished t-SNE on original features")
+
+    # 5. Scale + autoencoders per ratio
+    repr_X = {}
+    repr_y = {}
+
+    for key in ("1_to_10", "1_to_20", "1_to_50"):
+        log(f"Scaling and training autoencoder for {key}...")
+        X = X_sets[key]
+        y = y_sets[key]
+
+        X_scaled = scale_features_minmax(X)
+        X_norm, X_fraud = split_normal_fraud(X_scaled, y)
+
+        autoencoder, _ = train_autoencoder(X_norm)
+        encoder = build_encoder(autoencoder)
+
+        X_repr, y_repr, _ = latent_representations(encoder, X_norm, X_fraud)
+        repr_X[key] = X_repr
+        repr_y[key] = y_repr
+        log(f"Finished autoencoder + latent representation for {key}")
+
+    # 6. TSNE on latent representations
+    log("Computing t-SNE on latent representations...")
+    latent_tsne = tsne_embeddings(repr_X, n_components=2, random_state=24)
+    for key in ("1_to_10", "1_to_20", "1_to_50"):
+        plot_tsne(latent_tsne[key], repr_y[key], f"t-SNE (latent, {key})")
+    log("Finished t-SNE on latent space")
+
+    # 7. Evaluate models on latent representations
+    log("Evaluating models on latent representations...")
+
+    for key, label in [("1_to_10", "1:10"), ("1_to_20", "1:20"), ("1_to_50", "1:50")]:
+        Xr = repr_X[key]
+        yr = repr_y[key]
+        eval_logreg(Xr, yr, label)
+        eval_decision_tree(Xr, yr, label)
+        eval_xgboost(Xr, yr, label)
+        eval_random_forest(Xr, yr, label)
+
+    end = time.perf_counter()
+    log(f"Total runtime: {end - start:.2f} seconds")
+
+
+if __name__ == "__main__":
+    main()
