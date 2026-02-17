@@ -1,5 +1,4 @@
 # src/models_eval.py
-
 from typing import Tuple
 
 import matplotlib.pyplot as plt
@@ -12,6 +11,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from xgboost import XGBClassifier
 
+from src.plot_utils import plot_path
+
 
 def _train_val_split(
     X: np.ndarray,
@@ -22,7 +23,7 @@ def _train_val_split(
     return train_test_split(X, y, test_size=test_size, stratify=y, random_state=random_state)
 
 
-def _plot_confusion_matrix(y_true, y_pred, title: str):
+def _plot_confusion_matrix(y_true, y_pred, title: str, subdir: str, filename: str):
     fig, ax = plt.subplots()
     sns.heatmap(
         confusion_matrix(y_true, y_pred, normalize="true"),
@@ -32,7 +33,10 @@ def _plot_confusion_matrix(y_true, y_pred, title: str):
     ax.set_title(title)
     ax.set_ylabel("True Value")
     ax.set_xlabel("Predicted Value")
-    plt.show()
+
+    out_path = plot_path(subdir, filename)
+    fig.savefig(out_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
 
 
 def eval_logreg(X: np.ndarray, y: np.ndarray, title_suffix: str):
@@ -43,7 +47,13 @@ def eval_logreg(X: np.ndarray, y: np.ndarray, title_suffix: str):
 
     print(f"=== Logistic Regression ({title_suffix}) ===")
     print(classification_report(val_y, pred_y))
-    _plot_confusion_matrix(val_y, pred_y, f"Confusion Matrix (LogReg, {title_suffix})")
+    _plot_confusion_matrix(
+        val_y,
+        pred_y,
+        f"Confusion Matrix (LogReg, {title_suffix})",
+        subdir="confusion_logreg",
+        filename=f"logreg_{title_suffix.replace(':', '_')}.png",
+    )
 
 
 def eval_decision_tree(X: np.ndarray, y: np.ndarray, title_suffix: str):
@@ -54,7 +64,13 @@ def eval_decision_tree(X: np.ndarray, y: np.ndarray, title_suffix: str):
 
     print(f"=== Decision Tree ({title_suffix}) ===")
     print(classification_report(val_y, y_pred))
-    _plot_confusion_matrix(val_y, y_pred, f"Confusion Matrix (DT, {title_suffix})")
+    _plot_confusion_matrix(
+        val_y,
+        y_pred,
+        f"Confusion Matrix (DT, {title_suffix})",
+        subdir="confusion_dt",
+        filename=f"dt_{title_suffix.replace(':', '_')}.png",
+    )
 
 
 def eval_xgboost(X: np.ndarray, y: np.ndarray, title_suffix: str):
@@ -74,7 +90,13 @@ def eval_xgboost(X: np.ndarray, y: np.ndarray, title_suffix: str):
 
     print(f"=== XGBoost ({title_suffix}) ===")
     print(classification_report(val_y, y_pred))
-    _plot_confusion_matrix(val_y, y_pred, f"Confusion Matrix (XGB, {title_suffix})")
+    _plot_confusion_matrix(
+        val_y,
+        y_pred,
+        f"Confusion Matrix (XGB, {title_suffix})",
+        subdir="confusion_xgb",
+        filename=f"xgb_{title_suffix.replace(':', '_')}.png",
+    )
 
 
 def eval_random_forest(X: np.ndarray, y: np.ndarray, title_suffix: str):
@@ -91,4 +113,10 @@ def eval_random_forest(X: np.ndarray, y: np.ndarray, title_suffix: str):
 
     print(f"=== Random Forest ({title_suffix}) ===")
     print(classification_report(val_y, y_pred))
-    _plot_confusion_matrix(val_y, y_pred, f"Confusion Matrix (RF, {title_suffix})")
+    _plot_confusion_matrix(
+        val_y,
+        y_pred,
+        f"Confusion Matrix (RF, {title_suffix})",
+        subdir="confusion_rf",
+        filename=f"rf_{title_suffix.replace(':', '_')}.png",
+    )

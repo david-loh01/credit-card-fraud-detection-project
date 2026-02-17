@@ -60,7 +60,14 @@ def main():
     log("Computing t-SNE on original feature space...")
     highdim_tsne = tsne_embeddings(X_sets)
     for key, emb in highdim_tsne.items():
-        plot_tsne(emb, y_sets[key], f"t-SNE plot ({key})")
+        print("saving tsne representation for " + key) # debug
+        plot_tsne(
+            emb,
+            y_sets[key],
+            f"t-SNE plot ({key})",
+            subdir = "tsne_representation",
+            filename = f"tsne_representation_{key}.png",
+        )
     log("Finished t-SNE on original features")
 
     # 5. Scale + autoencoders per ratio
@@ -87,7 +94,13 @@ def main():
     log("Computing t-SNE on latent representations...")
     latent_tsne = tsne_embeddings(repr_X, n_components=2, random_state=24)
     for key in ("1_to_10", "1_to_20", "1_to_50"):
-        plot_tsne(latent_tsne[key], repr_y[key], f"t-SNE (latent, {key})")
+        plot_tsne(
+            latent_tsne[key],
+            repr_y[key],
+            f"t-SNE (latent, {key})",
+            subdir = "tsne_latent_representation",
+            filename = f"tsne_latent_representation_{key}.png",
+        )
     log("Finished t-SNE on latent space")
 
     # 7. Evaluate models on latent representations

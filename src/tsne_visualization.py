@@ -1,10 +1,11 @@
-# src/tsne_viz.py
+# src/tsne_visualization.py
 
 from typing import Dict
 
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.manifold import TSNE
+from src.plot_utils import plot_path
 
 
 def tsne_embeddings(
@@ -20,12 +21,7 @@ def tsne_embeddings(
     return out
 
 
-def plot_tsne(
-    embedding: np.ndarray,
-    y: np.ndarray,
-    title: str,
-):
-    """Scatter plot of TSNE embedding, colored by label."""
+def plot_tsne(embedding, y, title: str, subdir: str, filename: str):
     colour_map = {0: "green", 1: "red"}
     name_map = {0: "Non-fraud", 1: "Fraud"}
 
@@ -41,4 +37,7 @@ def plot_tsne(
     plt.ylabel("Y in t-SNE space")
     plt.legend(loc="upper right")
     plt.title(title)
-    plt.show()
+
+    out_path = plot_path(subdir, filename)
+    plt.savefig(out_path, dpi=150, bbox_inches="tight")
+    plt.close()
