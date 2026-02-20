@@ -11,12 +11,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from xgboost import XGBClassifier
-from sklearn.metrics import (
-classification_report,
-confusion_matrix,
-precision_recall_curve,
-average_precision_score
-)
+import sklearn.metrics
 
 from src.plot_utils import plot_path
 
@@ -33,7 +28,7 @@ def _train_val_split(
 def _plot_confusion_matrix(y_true, y_pred, title: str, subdir: str, filename: str):
     fig, ax = plt.subplots()
     sns.heatmap(
-        confusion_matrix(y_true, y_pred, normalize="true"),
+        sklearn.metrics.confusion_matrix(y_true, y_pred, normalize="true"),
         annot=True,
         ax=ax,
     )
@@ -50,8 +45,8 @@ def _plot_precision_recall_curve(y_true,
                                  title: str, subdir: str,
                                  filename: str
                                  ):
-    precision, recall, _ = precision_recall_curve(y_true, y_scores)
-    average_precision = average_precision_score(y_true, y_scores)
+    precision, recall, _ = sklearn.metrics.precision_recall_curve(y_true, y_scores)
+    average_precision = sklearn.metrics.average_precision_score(y_true, y_scores)
 
     fig, ax = plt.subplots()
     ax.step(recall,
@@ -59,7 +54,7 @@ def _plot_precision_recall_curve(y_true,
             color = "b",
             alpha = 0.2,
             where = "post",
-            label = f"AP = {ap:.3f}")
+            label = f"AP = {average_precision:.3f}")
     ax.set_xlabel("Recall")
     ax.set_ylabel("Precision")
     ax.set_title(title)
@@ -81,7 +76,7 @@ def eval_logreg(X: np.ndarray, y: np.ndarray, title_suffix: str):
     y_scores = clf.predict_proba(val_x)[:,1] #probability of fraud class
 
     print(f"=== Logistic Regression ({title_suffix}) ===")
-    print(classification_report(val_y, pred_y))
+    print(sklearn.metrics.classification_report(val_y, pred_y))
 
     _plot_confusion_matrix(
         val_y,
@@ -108,7 +103,7 @@ def eval_decision_tree(X: np.ndarray, y: np.ndarray, title_suffix: str):
     y_scores = model.predict_proba(val_x)[:,1]
 
     print(f"=== Decision Tree ({title_suffix}) ===")
-    print(classification_report(val_y, y_pred))
+    print(sklearn.metrics.classification_report(val_y, y_pred))
     _plot_confusion_matrix(
         val_y,
         y_pred,
@@ -141,7 +136,7 @@ def eval_xgboost(X: np.ndarray, y: np.ndarray, title_suffix: str):
     y_scores = model.predict_proba(val_x)[:,1]
 
     print(f"=== XGBoost ({title_suffix}) ===")
-    print(classification_report(val_y, y_pred))
+    print(sklearn.metrics.classification_report(val_y, y_pred))
     _plot_confusion_matrix(
         val_y,
         y_pred,
@@ -171,7 +166,7 @@ def eval_random_forest(X: np.ndarray, y: np.ndarray, title_suffix: str):
     y_scores = rf.predict_proba(val_x)[:,1]
 
     print(f"=== Random Forest ({title_suffix}) ===")
-    print(classification_report(val_y, y_pred))
+    print(sklearn.metrics.classification_report(val_y, y_pred))
     _plot_confusion_matrix(
         val_y,
         y_pred,
