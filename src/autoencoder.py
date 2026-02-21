@@ -1,5 +1,3 @@
-# src/autoencoder.py
-
 from typing import Dict, Tuple
 
 import numpy as np

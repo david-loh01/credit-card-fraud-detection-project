@@ -1,5 +1,3 @@
-# src/tsne_visualization.py
-
 from typing import Dict
 
 import matplotlib.pyplot as plt

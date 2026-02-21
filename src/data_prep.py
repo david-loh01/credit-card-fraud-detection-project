@@ -1,5 +1,3 @@
-# src/data_prep.py
-
 from pathlib import Path
 from typing import Dict, Tuple
 
@@ -36,6 +34,7 @@ def undersample_majority(
     target_col: str = "Class",
     random_state: int = 24,
 ) -> Dict[str, pd.DataFrame]:
+
     """
     Build undersampled datasets for given majority:minority ratios.
 
