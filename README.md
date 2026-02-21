@@ -3,6 +3,9 @@
 ## Description
 Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlier filtering, undersampling, MinMax scaling, autoencoders for latent features, t-SNE plots, and testing Logistic Regression, Decision Tree, XGBoost, Random Forest.
 
+** For Jupyter Notebook to display the correct figures:
+    python version - 3.11.9 
+
 ## Table of Contents
 ## Requirements
     absl-py==2.4.0
@@ -96,10 +99,6 @@ Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlie
 ## Results
 ## License
 
-For Jupyter Notebook to display the correct figures:
-    python version - 3.11.9 
-
-Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlier filtering, undersampling, MinMax scaling, autoencoders for latent features, t-SNE plots, and testing Logistic Regression, Decision Tree, XGBoost, Random Forest.
 
 Citations & Acknowledgements:
 https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
