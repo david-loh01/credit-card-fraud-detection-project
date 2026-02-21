@@ -95,12 +95,23 @@ Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlie
     xgboost==3.2.0
 
 ## Usage
+
+### For the EDA in the Jupyter Notebook
+Run directly from the notebook. Can either "Run All" or run all cells sequentially
+
+### Pipeline Script
+Run the pipeline from main.py
+        ---- OR ----
+From the project root
+
+bash
+```python train.py```
+
 ## Data
 ## Results
-## License
+## Citations & Acknowledgements:
 
-
-Citations & Acknowledgements:
+Data was taken from:
 https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
 (From Kaggle)
