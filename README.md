@@ -1,7 +1,7 @@
 # credit-card-fraud-detection-project
 
 ## Table of Contents
-* [Description]
+* [Description](#Description)
 * [Section 2](#Requirements)
 * [Section 3](#Usage)
     *[Subsection 1](#For the EDA in the Jupyter Notebook)
