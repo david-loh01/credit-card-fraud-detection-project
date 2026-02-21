@@ -1,12 +1,20 @@
 # credit-card-fraud-detection-project
 
+## Table of Contents
+* [Section 1](#Description)
+* [Section 2](#Requirements)
+* [Section 3](#Usage)
+    *[Subsection 1](#For the EDA in the Jupyter Notebook)
+       
+* [Section 4](#Data)
+
 ## Description
 Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlier filtering, undersampling, MinMax scaling, autoencoders for latent features, t-SNE plots, and testing Logistic Regression, Decision Tree, XGBoost, Random Forest.
 
 ** For Jupyter Notebook to display the correct figures:
     python version - 3.11.9 
 
-## Table of Contents
+
 ## Requirements
     absl-py==2.4.0
     ap==0.1.4
