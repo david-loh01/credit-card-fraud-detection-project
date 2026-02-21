@@ -2,11 +2,10 @@
 
 ## Table of Contents
 * [Description](#Description)
-* [Section 2](#Requirements)
-* [Section 3](#Usage)
-    *[Subsection 1](#For the EDA in the Jupyter Notebook)
-       
-* [Section 4](#Data)
+* [Requirements](#Requirements)
+* [Usage](#Usage)
+    *[For the EDA in the Jupyter Notebook](#For the EDA in the Jupyter Notebook)
+* [Data](#Data)
 
 ## Description
 Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlier filtering, undersampling, MinMax scaling, autoencoders for latent features, t-SNE plots, and testing Logistic Regression, Decision Tree, XGBoost, Random Forest.
