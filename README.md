@@ -113,7 +113,7 @@ It contains only numerical input variables which are the result of a PCA transfo
 ## Results
 ## Citations & Acknowledgements:
 
-Data was taken from:
+Data pulled from:
 https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
 
 (From Kaggle)
