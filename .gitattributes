@@ -1,7 +1,7 @@
 # Auto detect text files and perform LF normalization
 * text=auto
-* autoencoder.py
-* data_prep.py
-* models_eval.py
-* plot_utils.py
-* tsne_vizualization.py
+* autoencoder.py linguist-language=Python
+* data_prep.py linguist-language=Python
+* models_eval.py linguist-language=Python
+* plot_utils.py linguist-language=Python
+* tsne_vizualization.py linguist-language=Python
