@@ -1,5 +1,6 @@
 # Auto detect text files and perform LF normalization
 * text=auto
+* eda_credit_card_fraud_detection.ipynb linguist-language=Jupyter Notebook
 * autoencoder.py linguist-language=Python
 * data_prep.py linguist-language=Python
 * models_eval.py linguist-language=Python
