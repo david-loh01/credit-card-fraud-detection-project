@@ -111,7 +111,7 @@ Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlie
 Run directly from the notebook. Can either "Run All" or run all cells sequentially
 
 ### Pipeline Script
-Run the pipeline from main.py or from the project root (```python train.py```)
+Run the pipeline from ```train.py```
 
 ## Data
 Description of the dataset taken from https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud
