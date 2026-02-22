@@ -12,7 +12,7 @@
 * [Citations & Acknowledgements](#Citations-&-Acknowledgements)
 
 ## Description
-Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlier filtering, undersampling, MinMax scaling, autoencoders for latent features, t-SNE plots, and testing Logistic Regression, Decision Tree, XGBoost, Random Forest.
+Detect credit card fraud on an imbalanced PCA-transformed dataset. ​IQR outlier filtering, undersampling, MinMax scaling, autoencoders for latent features, t-SNE plots, and testing Logistic Regression, Decision Tree, XGBoost, Random Forest. The Performance Evaluation Tools used are the confusion matrix, and the Area Under the Precision Recall Curve (AUPRC).
 
 ** For Jupyter Notebook to display the correct figures:
     python version - 3.11.9 
