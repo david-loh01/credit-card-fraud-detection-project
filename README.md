@@ -4,7 +4,7 @@
 * [Description](#Description)
 * [Requirements](#Requirements)
 * [Usage](#Usage)
-    **[For the EDA in the Jupyter Notebook](##For the EDA in the Jupyter Notebook)
+    * [For the EDA in the Jupyter Notebook](##For the EDA in the Jupyter Notebook)
 * [Data](#Data)
 
 ## Description
