@@ -16,6 +16,7 @@ from src.autoencoder import (
     train_autoencoder,
     build_encoder,
     latent_representations,
+    save_all_val_losses,
 )
 from src.tsne_visualization import tsne_embeddings, plot_tsne
 from src.models_eval import (
@@ -74,6 +75,8 @@ def main():
     repr_X = {}
     repr_y = {}
 
+    histories = {}
+
     for key in ("1_to_10", "1_to_20", "1_to_50"):
         log(f"Scaling and training autoencoder for {key}...")
         X = X_sets[key]
@@ -82,13 +85,20 @@ def main():
         X_scaled = scale_features_minmax(X)
         X_norm, X_fraud = split_normal_fraud(X_scaled, y)
 
-        autoencoder, _ = train_autoencoder(X_norm)
+        autoencoder, history = train_autoencoder(X_norm)
         encoder = build_encoder(autoencoder)
 
         X_repr, y_repr, _ = latent_representations(encoder, X_norm, X_fraud)
         repr_X[key] = X_repr
         repr_y[key] = y_repr
+        histories[key] = history
         log(f"Finished autoencoder + latent representation for {key}")
+
+    save_all_val_losses(
+        histories["1_to_10"],
+        histories["1_to_20"],
+        histories["1_to_50"],
+    )
 
     # 6. TSNE on latent representations
     log("Computing t-SNE on latent representations...")

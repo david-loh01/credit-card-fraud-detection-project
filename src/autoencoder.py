@@ -4,6 +4,8 @@ import numpy as np
 from keras.layers import Input, Dense
 from keras.models import Sequential
 from sklearn import preprocessing
+import matplotlib.pyplot as plt
+from src.plot_utils import plot_path
 
 
 def scale_features_minmax(X: np.ndarray) -> np.ndarray:
@@ -79,3 +81,34 @@ def latent_representations(
     y_repr = np.append(y_norm, y_fraud)
 
     return X_repr, y_repr, norm_repr
+
+def save_all_val_losses(hist_1_to_10, hist_1_to_20, hist_1_to_50):
+    # ---- Linear ----
+    plt.figure(figsize=(8, 5))
+    plt.plot(hist_1_to_10.history["val_loss"], label="1:10")
+    plt.plot(hist_1_to_20.history["val_loss"], label="1:20")
+    plt.plot(hist_1_to_50.history["val_loss"], label="1:50")
+
+    plt.title("Autoencoder Validation Loss (3 ratios)")
+    plt.xlabel("Epoch")
+    plt.ylabel("Validation Loss")
+    plt.legend()
+    plt.tight_layout()
+    out_path = plot_path("autoencoder_loss", "autoencoder_val_loss_all_linear.png")
+    plt.savefig(out_path, dpi=150, bbox_inches="tight")
+    plt.close()
+
+    # ---- Log ----
+    plt.figure(figsize=(8, 5))
+    plt.plot(hist_1_to_10.history["val_loss"], label="1:10")
+    plt.plot(hist_1_to_20.history["val_loss"], label="1:20")
+    plt.plot(hist_1_to_50.history["val_loss"], label="1:50")
+    plt.yscale("log")  # <- log y-axis
+    plt.title("Autoencoder Validation Loss (3 ratios, log scale)")
+    plt.xlabel("Epoch")
+    plt.ylabel("Validation Loss (log)")
+    plt.legend()
+    plt.tight_layout()
+    out_path_log = plot_path("autoencoder_loss", "autoencoder_val_loss_all_log.png")
+    plt.savefig(out_path_log, dpi=150, bbox_inches="tight")
+    plt.close()
