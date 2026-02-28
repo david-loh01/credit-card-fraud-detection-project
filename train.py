@@ -1,8 +1,11 @@
 # train.py
 import time
 from pathlib import Path
+from contextlib import redirect_stdout
 
 import numpy as np
+
+RESULTS_DIR = Path(__file__).parent / "results.txt"
 
 from src.data_prep import (
     load_data,
@@ -26,12 +29,38 @@ from src.models_eval import (
     eval_random_forest,
 )
 
+def build_results_markdown(metrics_summary: dict) -> str:
+
+    lines = []
+    lines.append("#Results\n")
+    lines.append("")
+    lines.append("Last run results (auto-generated):")
+    lines.append("")
+    lines.append("| Ratio | Model   | AUPRC |")
+    lines.append("|-------|---------|-------|")
+
+    for ratio, models in metrics_summary.items():
+        for model, auprc in models.items():
+            lines.append(f"| {ratio} | {model} | {auprc:.3f} |")
+
+    return "\n".join(lines)
+
+
+def write_results_markdown(markdown: str, path: Path = Path("README.md")):
+    path.write_text(markdown, encoding="utf-8")
+
+
 
 def log(msg: str):
+    text = str(msg)
     print(msg, flush=True)
-
+    with RESULTS_DIR.open("a", encoding="utf-8") as f:
+        f.write(text + "\n")
 
 def main():
+    if RESULTS_DIR.exists():
+        RESULTS_DIR.unlink()
+
     start = time.perf_counter()
     log("Starting pipeline...")
 
@@ -113,20 +142,26 @@ def main():
         )
     log("Finished t-SNE on latent space")
 
-    # 7. Evaluate models on latent representations
-    log("Evaluating models on latent representations...")
+    with RESULTS_DIR.open("a", encoding="utf-8") as f:
+        with redirect_stdout(f):
+            # 7. Evaluate models on latent representations
+            log("Evaluating models on latent representations...")
 
-    for key, label in [("1_to_10", "1:10"), ("1_to_20", "1:20"), ("1_to_50", "1:50")]:
-        Xr = repr_X[key]
-        yr = repr_y[key]
-        eval_logreg(Xr, yr, label)
-        eval_decision_tree(Xr, yr, label)
-        eval_xgboost(Xr, yr, label)
-        eval_random_forest(Xr, yr, label)
+            for key, label in [("1_to_10", "1:10"), ("1_to_20", "1:20"), ("1_to_50", "1:50")]:
+                Xr = repr_X[key]
+                yr = repr_y[key]
+                eval_logreg(Xr, yr, label)
+                eval_decision_tree(Xr, yr, label)
+                eval_xgboost(Xr, yr, label)
+                eval_random_forest(Xr, yr, label)
 
-    end = time.perf_counter()
-    log(f"Total runtime: {end - start:.2f} seconds")
+            end = time.perf_counter()
+            log(f"Total runtime: {end - start:.2f} seconds")
 
+    metrics_summary = {
+    }
+    md = build_results_markdown(metrics_summary)
+    write_results_markdown(md)
 
 if __name__ == "__main__":
     main()

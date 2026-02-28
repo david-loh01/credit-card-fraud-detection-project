@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4fb2781f-70b1-4cd7-a45f-587a35590683" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots/autoencoder_loss/autoencoder_val_loss_all_linear.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/autoencoder_loss/autoencoder_val_loss_all_linear.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/plots/autoencoder_loss/autoencoder_val_loss_all_log.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/autoencoder_loss/autoencoder_val_loss_all_log.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/confusion_matrix_decision_tree/confusion_matrix_decision_tree_1_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/confusion_matrix_decision_tree/confusion_matrix_decision_tree_1_10.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/confusion_matrix_decision_tree/confusion_matrix_decision_tree_1_20.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/confusion_matrix_decision_tree/confusion_matrix_decision_tree_1_20.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/confusion_matrix_decision_tree/confusion_matrix_decision_tree_1_50.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/confusion_matrix_decision_tree/confusion_matrix_decision_tree_1_50.png" afterDir="false" />
@@ -33,7 +35,6 @@
       <change beforePath="$PROJECT_DIR$/plots/tsne_latent_representation/tsne_latent_representation_1_to_10.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/tsne_latent_representation/tsne_latent_representation_1_to_10.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/tsne_latent_representation/tsne_latent_representation_1_to_20.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/tsne_latent_representation/tsne_latent_representation_1_to_20.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/plots/tsne_latent_representation/tsne_latent_representation_1_to_50.png" beforeDir="false" afterPath="$PROJECT_DIR$/plots/tsne_latent_representation/tsne_latent_representation_1_to_50.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/autoencoder.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/autoencoder.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

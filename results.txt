@@ -1,0 +1,6 @@
+Starting pipeline...
+Loaded  284807 rows
+After Amount filter: 284795 rows
+Created undersampled datasets: 1_to_10, 1_to_20, 1_to_50
+Split sampled datasets into X and y
+Computing t-SNE on original feature space...
