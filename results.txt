@@ -4,3 +4,148 @@ After Amount filter: 284795 rows
 Created undersampled datasets: 1_to_10, 1_to_20, 1_to_50
 Split sampled datasets into X and y
 Computing t-SNE on original feature space...
+Finished t-SNE on original features
+Scaling and training autoencoder for 1_to_10...
+Finished autoencoder + latent representation for 1_to_10
+Scaling and training autoencoder for 1_to_20...
+Finished autoencoder + latent representation for 1_to_20
+Scaling and training autoencoder for 1_to_50...
+Finished autoencoder + latent representation for 1_to_50
+Computing t-SNE on latent representations...
+Finished t-SNE on latent space
+Evaluating models on latent representations...
+Evaluating models on latent representations...
+=== Logistic Regression (1:10) ===
+              precision    recall  f1-score   support
+
+         0.0       0.96      1.00      0.98       985
+         1.0       1.00      0.54      0.70        98
+
+    accuracy                           0.96      1083
+   macro avg       0.98      0.77      0.84      1083
+weighted avg       0.96      0.96      0.95      1083
+
+Precision Recall Curve (LogReg, 1:10) - Average Precision Score (AUPRC): 0.8533
+=== Decision Tree (1:10) ===
+              precision    recall  f1-score   support
+
+         0.0       0.98      1.00      0.99       985
+         1.0       0.95      0.77      0.85        98
+
+    accuracy                           0.98      1083
+   macro avg       0.96      0.88      0.92      1083
+weighted avg       0.97      0.98      0.97      1083
+
+PR Curve (DT, 1:10) - Average Precision Score (AUPRC): 0.7954
+=== XGBoost (1:10) ===
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      0.99       985
+         1.0       0.97      0.87      0.91        98
+
+    accuracy                           0.99      1083
+   macro avg       0.98      0.93      0.95      1083
+weighted avg       0.99      0.99      0.98      1083
+
+PR Curve (XGB, 1:10) - Average Precision Score (AUPRC): 0.9380
+=== Random Forest (1:10) ===
+              precision    recall  f1-score   support
+
+         0.0       0.98      1.00      0.99       985
+         1.0       0.99      0.79      0.88        98
+
+    accuracy                           0.98      1083
+   macro avg       0.98      0.89      0.93      1083
+weighted avg       0.98      0.98      0.98      1083
+
+PR Curve (RF, 1:10) - Average Precision Score (AUPRC): 0.9175
+=== Logistic Regression (1:20) ===
+              precision    recall  f1-score   support
+
+         0.0       0.98      1.00      0.99      1969
+         1.0       0.98      0.60      0.75        98
+
+    accuracy                           0.98      2067
+   macro avg       0.98      0.80      0.87      2067
+weighted avg       0.98      0.98      0.98      2067
+
+Precision Recall Curve (LogReg, 1:20) - Average Precision Score (AUPRC): 0.9040
+=== Decision Tree (1:20) ===
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      0.99      1969
+         1.0       0.90      0.80      0.84        98
+
+    accuracy                           0.99      2067
+   macro avg       0.94      0.90      0.92      2067
+weighted avg       0.99      0.99      0.99      2067
+
+PR Curve (DT, 1:20) - Average Precision Score (AUPRC): 0.7551
+=== XGBoost (1:20) ===
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      1.00      1969
+         1.0       0.98      0.89      0.93        98
+
+    accuracy                           0.99      2067
+   macro avg       0.99      0.94      0.96      2067
+weighted avg       0.99      0.99      0.99      2067
+
+PR Curve (XGB, 1:20) - Average Precision Score (AUPRC): 0.9390
+=== Random Forest (1:20) ===
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      0.99      1969
+         1.0       1.00      0.80      0.89        98
+
+    accuracy                           0.99      2067
+   macro avg       0.99      0.90      0.94      2067
+weighted avg       0.99      0.99      0.99      2067
+
+PR Curve (RF, 1:20) - Average Precision Score (AUPRC): 0.9344
+=== Logistic Regression (1:50) ===
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      1.00      4921
+         1.0       0.95      0.55      0.70        98
+
+    accuracy                           0.99      5019
+   macro avg       0.97      0.78      0.85      5019
+weighted avg       0.99      0.99      0.99      5019
+
+Precision Recall Curve (LogReg, 1:50) - Average Precision Score (AUPRC): 0.8305
+=== Decision Tree (1:50) ===
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      1.00      4921
+         1.0       0.90      0.70      0.79        98
+
+    accuracy                           0.99      5019
+   macro avg       0.95      0.85      0.89      5019
+weighted avg       0.99      0.99      0.99      5019
+
+PR Curve (DT, 1:50) - Average Precision Score (AUPRC): 0.6987
+=== XGBoost (1:50) ===
+              precision    recall  f1-score   support
+
+         0.0       1.00      1.00      1.00      4921
+         1.0       0.92      0.78      0.84        98
+
+    accuracy                           0.99      5019
+   macro avg       0.96      0.89      0.92      5019
+weighted avg       0.99      0.99      0.99      5019
+
+PR Curve (XGB, 1:50) - Average Precision Score (AUPRC): 0.8511
+=== Random Forest (1:50) ===
+              precision    recall  f1-score   support
+
+         0.0       0.99      1.00      1.00      4921
+         1.0       0.96      0.70      0.81        98
+
+    accuracy                           0.99      5019
+   macro avg       0.98      0.85      0.90      5019
+weighted avg       0.99      0.99      0.99      5019
+
+PR Curve (RF, 1:50) - Average Precision Score (AUPRC): 0.8730
+Total runtime: 190.63 seconds
+Total runtime: 190.63 seconds

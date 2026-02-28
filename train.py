@@ -29,27 +29,6 @@ from src.models_eval import (
     eval_random_forest,
 )
 
-def build_results_markdown(metrics_summary: dict) -> str:
-
-    lines = []
-    lines.append("#Results\n")
-    lines.append("")
-    lines.append("Last run results (auto-generated):")
-    lines.append("")
-    lines.append("| Ratio | Model   | AUPRC |")
-    lines.append("|-------|---------|-------|")
-
-    for ratio, models in metrics_summary.items():
-        for model, auprc in models.items():
-            lines.append(f"| {ratio} | {model} | {auprc:.3f} |")
-
-    return "\n".join(lines)
-
-
-def write_results_markdown(markdown: str, path: Path = Path("README.md")):
-    path.write_text(markdown, encoding="utf-8")
-
-
 
 def log(msg: str):
     text = str(msg)
@@ -157,11 +136,6 @@ def main():
 
             end = time.perf_counter()
             log(f"Total runtime: {end - start:.2f} seconds")
-
-    metrics_summary = {
-    }
-    md = build_results_markdown(metrics_summary)
-    write_results_markdown(md)
 
 if __name__ == "__main__":
     main()
