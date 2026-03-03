@@ -144,6 +144,8 @@ credit-card-fraud-detection-project/
   train.py
 ```
 ## Results
+Across all undersampling ratios (1:10, 1:20, 1:50), autoencoder latent features plus tree-based models achieved very strong fraud detection performance, with XGBoost consistently delivering the best fraud F1 and highest AUPRC, and Random Forest performing a close second. Logistic Regression maintained high overall accuracy but showed noticeably lower recall for the fraud class, indicating it under-detects frauds even in the latent space. Confusion-matrix metrics capture performance at a single operating threshold, while AUPRC reflects ranking quality across all thresholds; in this setup, AUPRC highlights XGBoost and Random Forest as more robust and flexible when tuning for different precision–recall trade-offs.
+
 ## Citations & Acknowledgements:
 
 Data pulled from:
